@@ -35,10 +35,6 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 $callableResolver = $app->getCallableResolver();
 
-// Register middleware
-$middleware = require __DIR__ . '/../config/middleware.php';
-$middleware($app);
-
 // Register routes
 $routes = require __DIR__ . '/../config/routes.php';
 $routes($app);

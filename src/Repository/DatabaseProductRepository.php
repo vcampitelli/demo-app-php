@@ -53,6 +53,7 @@ class DatabaseProductRepository extends AbstractDatabaseRepository implements Pr
         $object->name = $model->name;
         $object->sku = $model->sku;
         $object->price = $model->price;
+        $object->image = $model->image;
         $object->active = $model->active;
         return $object;
     }
@@ -65,6 +66,7 @@ class DatabaseProductRepository extends AbstractDatabaseRepository implements Pr
             name: $row->name,
             sku: $row->sku,
             price: (float) $row->price,
+            image: $row->image,
             active: (bool) $row->active,
         );
     }

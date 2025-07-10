@@ -60,6 +60,7 @@ CREATE TABLE `products` (
   `name` varchar(100) NOT NULL,
   `sku` char(10) NOT NULL,
   `price` decimal(6,2) NOT NULL,
+  `image` varchar(100) NULL,
   `active` tinyint(1) unsigned NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE KEY (`sku`),
@@ -75,11 +76,11 @@ CREATE TABLE `products` (
 LOCK TABLES `products` WRITE;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` VALUES
-(1,1,'Patinete infantil','0000000001',200.00,1),
-(2,1,'Trator a bateria','0000000002',1949.00,1),
-(3,2,'Geladeira','0000000003',1799.00,1),
-(4,2,'Fritadeira elétrica','0000000004',269.00,1),
-(5,3,'Desinfetante','0000000005',8.99,1);
+(1,1,'Patinete infantil','0000000001',200.00,NULL, 1),
+(2,1,'Trator a bateria','0000000002',1949.00,NULL, 1),
+(3,2,'Geladeira','0000000003',1799.00,NULL, 1),
+(4,2,'Fritadeira elétrica','0000000004',269.00,NULL, 1),
+(5,3,'Desinfetante','0000000005',8.99,NULL, 1);
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

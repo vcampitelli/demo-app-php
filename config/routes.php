@@ -22,6 +22,7 @@ return function (App $app) {
     $app->group('/products', function (Group $group) {
         $group->get('', Product\ListProductAction::class);
         $group->get('/{id}', Product\ViewProductAction::class);
+        $group->get('/{id}/image', Product\ViewProductImageAction::class);
         $group->post('', Product\CreateProductAction::class);
     });
 };

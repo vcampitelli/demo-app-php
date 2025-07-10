@@ -25,6 +25,12 @@ return function (ContainerBuilder $containerBuilder) {
                     'username' => $_ENV['DATABASE_USERNAME'],
                     'password' => $_ENV['DATABASE_PASSWORD'],
                 ],
+                's3' => [
+                    'region' => $_ENV['S3_BUCKET_REGION'],
+                    'bucket' => $_ENV['S3_BUCKET_NAME'],
+                    'key' => $_ENV['S3_ACCESS_KEY_ID'] ?? null,
+                    'secret' => $_ENV['S3_SECRET_ACCESS_KEY'] ?? null,
+                ],
             ]);
         }
     ]);

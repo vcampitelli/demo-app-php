@@ -6,6 +6,8 @@ use App\Application\Settings\SettingsInterface;
 use App\Persistence\DatabaseAdapterInterface;
 use App\Persistence\Pdo\PdoWrapper;
 use App\Persistence\PdoDatabaseAdapter;
+use App\Storage\S3Storage;
+use Aws\S3\S3Client;
 use DI\ContainerBuilder;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -41,6 +43,35 @@ return function (ContainerBuilder $containerBuilder) {
                 [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 ]
+            );
+        },
+        S3Client::class => function (ContainerInterface $container) {
+            /** @var SettingsInterface $settings */
+            $settings = $container->get(SettingsInterface::class);
+            $s3 = $settings->get('s3');
+
+            $options = [
+                'region' => $s3['region'],
+            ];
+            if ((!empty($s3['key'])) && (!empty($s3['secret']))) {
+                $options['credentials'] = [
+                    'key' => $s3['key'],
+                    'secret' => $s3['secret'],
+                ];
+            }
+
+            return new S3Client($options);
+        },
+        S3Storage::class => function (ContainerInterface $container) {
+            /** @var SettingsInterface $settings */
+            $settings = $container->get(SettingsInterface::class);
+
+            /** @var S3Client $s3Client */
+            $s3Client = $container->get(S3Client::class);
+
+            return new S3Storage(
+                $s3Client,
+                $settings->get('s3')['bucket'],
             );
         },
     ]);

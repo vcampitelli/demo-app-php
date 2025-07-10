@@ -17,6 +17,7 @@ readonly class Product implements ModelInterface
     public string $sku;
     public float $price;
     public bool $active;
+    public string|null $image;
 
     /**
      * @param int|null $id
@@ -25,6 +26,7 @@ readonly class Product implements ModelInterface
      * @param string $sku
      * @param float $price
      * @param bool $active
+     * @param string|null $image
      */
     public function __construct(
         ?int $id,
@@ -32,7 +34,8 @@ readonly class Product implements ModelInterface
         string $name,
         string $sku,
         float $price,
-        bool $active
+        ?string $image,
+        bool $active,
     ) {
         if (($id !== null) && ($id < 1)) {
             throw new InvalidArgumentException('ID do produto inválido');
@@ -54,6 +57,7 @@ readonly class Product implements ModelInterface
         $this->name = $name;
         $this->sku = $sku;
         $this->price = $price;
+        $this->image = $image;
         $this->active = $active;
     }
 
@@ -65,6 +69,7 @@ readonly class Product implements ModelInterface
             'name' => $this->name,
             'sku' => $this->sku,
             'price' => $this->price,
+            'image' => $this->image,
             'active' => $this->active,
         ];
     }
@@ -98,6 +103,11 @@ readonly class Product implements ModelInterface
         return $this->build(price: $price);
     }
 
+    public function withImage(string $image): Product
+    {
+        return $this->build(image: $image);
+    }
+
     public function withActive(bool $active): Product
     {
         return $this->build(active: $active);
@@ -109,6 +119,7 @@ readonly class Product implements ModelInterface
         ?string $name = null,
         ?string $sku = null,
         ?float $price = null,
+        ?string $image = null,
         ?bool $active = null
     ): Product {
         return new Product(
@@ -117,6 +128,7 @@ readonly class Product implements ModelInterface
             name: $name ?? $this->name,
             sku: $sku ?? $this->sku,
             price: $price ?? $this->price,
+            image: $image ?? $this->image,
             active: $active ?? $this->active,
         );
     }
